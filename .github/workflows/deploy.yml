@@ -1,7 +1,7 @@
 name: CD - Deploy to NCP by docker
 
 on:
-  pull_request:
+  push:
     branches: develop
 
 # 권한 설정
