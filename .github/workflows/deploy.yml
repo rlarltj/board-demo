@@ -2,7 +2,7 @@ name: CD - Deploy to NCP by docker
 
 on:
   push:
-    branches: develop
+    branches: [ develop ]
 
 # 권한 설정
 permissions:
