@@ -3,7 +3,7 @@ name: CI - Gradle Build
 # Event
 on:
   pull_request:
-    branches: develop
+    branches: [ dev ]
 
 # 권한 설정
 permissions: write-all
@@ -40,4 +40,6 @@ jobs:
 
       # 빌드
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build

@@ -1,8 +1,8 @@
 name: CD - Deploy to NCP by docker
 
 on:
-  pull_request:
-    branches: develop
+  push:
+    branches: [ dev ]
 
 # 권한 설정
 permissions:
@@ -44,8 +44,8 @@ jobs:
       - name: Send env file
         uses: appleboy/scp-action@master
         with:
-          username: ubuntu
           host: ${{ secrets.NCP_HOST }}
+          username: ${{ secrets.NCP_USERNAME }}
           key: ${{ secrets.NCP_PASSWORD }}
           source: "./.env"
           target: "/home/ubuntu"
@@ -54,8 +54,8 @@ jobs:
       - name: Send docker-compose.yml
         uses: appleboy/scp-action@master
         with:
-          username: ubuntu
           host: ${{ secrets.NCP_HOST }}
+          username: ${{ secrets.NCP_USERNAME }}
           key: ${{ secrets.NCP_PASSWORD }}
           port: 22
           source: "./.docker/docker-compose.yml"
@@ -66,8 +66,8 @@ jobs:
       - name: Deploy to Dev
         uses: appleboy/ssh-action@master
         with:
-          username: ubuntu
           host: ${{ secrets.NCP_HOST }}
+          username: ${{ secrets.NCP_USERNAME }}
           key: ${{ secrets.NCP_PASSWORD }}
           script: |
             sudo docker rm -f $(docker ps -qa)
