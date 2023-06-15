@@ -1,4 +1,4 @@
-package com.example.board.domain;
+package com.example.board.domain.article;
 
 import static javax.persistence.GenerationType.*;
 import static lombok.AccessLevel.*;
@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+
+import com.example.board.domain.BaseEntity;
+import com.example.board.domain.comment.Comment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
