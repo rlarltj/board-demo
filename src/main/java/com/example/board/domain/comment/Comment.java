@@ -15,7 +15,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import com.example.board.domain.article.Article;
-import com.example.board.domain.BaseEntity;
+import com.example.board.global.domain.BaseEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

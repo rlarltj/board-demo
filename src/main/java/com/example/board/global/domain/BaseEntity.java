@@ -1,4 +1,4 @@
-package com.example.board.domain;
+package com.example.board.global.domain;
 
 import static lombok.AccessLevel.*;
 
