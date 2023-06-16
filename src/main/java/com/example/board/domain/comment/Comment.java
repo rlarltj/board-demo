@@ -1,4 +1,4 @@
-package com.example.board.domain;
+package com.example.board.domain.comment;
 
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.*;
@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.example.board.domain.article.Article;
+import com.example.board.global.domain.BaseEntity;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE comment set deleted = true where id=?")
-public class Comment extends BaseEntity{
+public class Comment extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
