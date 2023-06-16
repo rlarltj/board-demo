@@ -2,6 +2,8 @@ package com.example.board.domain.user.api;
 
 import static org.springframework.http.MediaType.*;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping(produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-	public IdResponse join(@RequestBody UserCreateRequest userCreateRequest) {
+	public IdResponse join(@RequestBody @Valid UserCreateRequest userCreateRequest) {
 		return userService.join(userCreateRequest.username(), userCreateRequest.password());
 	}
 }
