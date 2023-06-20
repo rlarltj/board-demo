@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import com.example.board.domain.article.Article;
+import com.example.board.domain.article.model.Article;
 import com.example.board.global.domain.BaseEntity;
 
 import lombok.AccessLevel;
@@ -39,16 +39,12 @@ public class Comment extends BaseEntity {
 	@Column(nullable = false, length = 600)
 	private String content;
 
-	private Comment(Article article, String content) {
+	public Comment(Article article, String content) {
 		notNull(article, "게시글 정보가 없습니다.");
 		hasText(content, "댓글은 필수 입력사항입니다.");
 
 		this.article = article;
 		this.content = content;
-	}
-
-	public static Comment of(Article article, String content) {
-		return new Comment(article, content);
 	}
 }
 
