@@ -73,7 +73,6 @@ jobs:
           password: ${{ secrets.NCP_PASSWORD }}
           script: |
             sudo cp /home/ubuntu/.docker/docker-compose.yml /home/ubuntu
-            sudo cp /home/ubuntu/script/deploy.sh /home/ubuntu
             cd /home/ubuntu
             sudo docker rm -f $(docker ps -qa)
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}

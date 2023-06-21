@@ -3,8 +3,8 @@ package com.example.board.domain.user.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.board.domain.user.model.User;
 import com.example.board.domain.user.exception.DuplicateUsernameException;
+import com.example.board.domain.user.model.User;
 import com.example.board.domain.user.repository.UserRepository;
 import com.example.board.global.dto.IdResponse;
 
@@ -24,7 +24,7 @@ public class UserService {
 				throw new DuplicateUsernameException("이미 사용중인 ID입니다: " + user.getUsername());
 			});
 
-		User user = User.of(username, password);
+		User user = new User(username, password);
 		userRepository.save(user);
 
 		return new IdResponse(user.getId());
