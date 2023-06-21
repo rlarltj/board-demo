@@ -5,6 +5,6 @@ import com.example.board.domain.user.model.User;
 public class UserObjectProvider {
 
 	public static User createUser() {
-		return User.of("홍길동", "1234");
+		return new User("홍길동", "1234");
 	}
 }
