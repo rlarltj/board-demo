@@ -60,4 +60,11 @@ public class Article extends BaseEntity {
 		this.writer = writer;
 	}
 
+	public void update(String title, String content) {
+		hasText(title, "제목은 필수 입력사항입니다.");
+		hasText(content, "본문은 필수 입력사항입니다.");
+
+		this.title = title;
+		this.content = content;
+	}
 }

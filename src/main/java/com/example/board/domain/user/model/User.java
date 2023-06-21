@@ -7,7 +7,6 @@ import static org.springframework.util.Assert.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +17,7 @@ import org.hibernate.annotations.Where;
 
 import com.example.board.global.domain.BaseEntity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 @NoArgsConstructor(access = PROTECTED)
 @Where(clause = "deleted = false")
+@EqualsAndHashCode(of = {"id", "username"})
 @SQLDelete(sql = "UPDATE users set deleted = true where id=?")
 public class User extends BaseEntity {
 
@@ -33,7 +34,7 @@ public class User extends BaseEntity {
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
 
-	@Column(length = 20, nullable = false)
+	@Column(length = 20, nullable = false, unique = true)
 	private String username;
 
 	@Column(length = 20, nullable = false)
@@ -43,15 +44,11 @@ public class User extends BaseEntity {
 	@Enumerated(STRING)
 	private UserRole role = UserRole.USER;
 
-	private User(String username, String password) {
+	public User(String username, String password) {
 		hasText(username, "아이디는 필수 입력사항입니다.");
 		hasText(password, "비밀번호는 필수 입력사항입니다.");
 
 		this.username = username;
 		this.password = password;
-	}
-
-	public static User of(String username, String password) {
-		return new User(username, password);
 	}
 }

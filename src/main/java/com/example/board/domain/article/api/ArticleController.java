@@ -7,13 +7,17 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.board.domain.article.dto.ArticleCreateRequest;
+import com.example.board.domain.article.dto.ArticleUpdateRequest;
 import com.example.board.domain.article.service.ArticleService;
 import com.example.board.global.dto.IdResponse;
 
@@ -36,4 +40,18 @@ public class ArticleController {
 		return ResponseEntity.created(location).body(idResponse);
 	}
 
+	@PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> modify(@PathVariable(value = "id") Long id,
+		@RequestBody @Valid ArticleUpdateRequest updateRequest) {
+
+		articleService.update(id, updateRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
+
+		articleService.delete(id);
+		return ResponseEntity.ok().build();
+	}
 }
