@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.board.domain.article.dto.ArticleCreateRequest;
+import com.example.board.domain.article.dto.ArticleResponse;
 import com.example.board.domain.article.dto.ArticleUpdateRequest;
 import com.example.board.domain.article.service.ArticleService;
 import com.example.board.global.dto.IdResponse;
@@ -53,5 +55,15 @@ public class ArticleController {
 
 		articleService.delete(id);
 		return ResponseEntity.ok().build();
+	}
+
+	/**
+	 * 게시글 단건 조회
+	 */
+	@GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<ArticleResponse> article(@PathVariable Long id) {
+		ArticleResponse response = articleService.getById(id);
+
+		return ResponseEntity.ok().body(response);
 	}
 }

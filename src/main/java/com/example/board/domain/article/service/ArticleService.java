@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.board.domain.article.converter.ArticleMapper;
 import com.example.board.domain.article.dto.ArticleCreateRequest;
+import com.example.board.domain.article.dto.ArticleResponse;
 import com.example.board.domain.article.dto.ArticleUpdateRequest;
 import com.example.board.domain.article.exception.ArticleNotFoundException;
 import com.example.board.domain.article.model.Article;
@@ -63,5 +64,12 @@ public class ArticleService {
 			.orElseThrow(() -> new ArticleNotFoundException(new Object[] {articleId}));
 
 		articleRepository.delete(article);
+	}
+
+	public ArticleResponse getById(Long id) {
+		Article article = articleRepository.findById(id)
+			.orElseThrow(() -> new ArticleNotFoundException("게시글을 찾을 수 없습니다."));
+
+		return articleMapper.toArticleResponse(article, id);
 	}
 }
