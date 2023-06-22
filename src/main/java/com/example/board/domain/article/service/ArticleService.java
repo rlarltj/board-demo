@@ -32,10 +32,10 @@ public class ArticleService {
 	/**
 	 * 등록
 	 */
-
+	@Transactional
 	public IdResponse register(ArticleCreateRequest createRequest) {
 		User user = userRepository.findById(createRequest.userId())
-			.orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다."));
+			.orElseThrow(() -> new UserNotFoundException(new Object[] {createRequest.userId()}));
 
 		Article article = articleMapper.toArticle(createRequest, user);
 
@@ -48,10 +48,10 @@ public class ArticleService {
 	@Transactional
 	public void update(Long articleId, ArticleUpdateRequest updateRequest) {
 		User user = userRepository.findById(updateRequest.userId())
-			.orElseThrow(() -> new UserNotFoundException("사용자를 찾을 수 없습니다."));
+			.orElseThrow(() -> new UserNotFoundException(new Object[] {updateRequest.userId()}));
 
 		Article article = articleRepository.findById(articleId)
-			.orElseThrow(() -> new ArticleNotFoundException("게시글을 찾을 수 없습니다."));
+			.orElseThrow(() -> new ArticleNotFoundException(new Object[] {articleId}));
 
 		article.update(updateRequest.title(), updateRequest.content());
 	}
@@ -60,7 +60,7 @@ public class ArticleService {
 	@Transactional
 	public void delete(Long articleId) {
 		Article article = articleRepository.findById(articleId)
-			.orElseThrow(() -> new ArticleNotFoundException("게시글을 찾을 수 없습니다."));
+			.orElseThrow(() -> new ArticleNotFoundException(new Object[] {articleId}));
 
 		articleRepository.delete(article);
 	}

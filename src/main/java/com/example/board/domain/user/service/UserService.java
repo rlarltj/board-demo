@@ -21,7 +21,7 @@ public class UserService {
 	public IdResponse join(String username, String password) {
 		userRepository.findByUsername(username)
 			.ifPresent(user -> {
-				throw new DuplicateUsernameException("이미 사용중인 ID입니다: " + user.getUsername());
+				throw new DuplicateUsernameException(new Object[] {username});
 			});
 
 		User user = new User(username, password);
