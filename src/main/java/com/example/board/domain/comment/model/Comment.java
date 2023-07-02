@@ -1,4 +1,4 @@
-package com.example.board.domain.comment;
+package com.example.board.domain.comment.model;
 
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.*;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.example.board.domain.user.model.User;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -39,12 +40,22 @@ public class Comment extends BaseEntity {
 	@Column(nullable = false, length = 600)
 	private String content;
 
-	public Comment(Article article, String content) {
+	@ManyToOne(fetch = LAZY)
+	@JoinColumn(name = "user_id")
+	private User writer;
+	public Comment(Article article, String content, User writer) {
 		notNull(article, "게시글 정보가 없습니다.");
 		hasText(content, "댓글은 필수 입력사항입니다.");
 
 		this.article = article;
 		this.content = content;
+		this.writer = writer;
 	}
+
+	public void update(String content) {
+		hasText(content, "변경할 댓글을 입력해주세요.");
+		this.content = content;
+	}
+
 }
 

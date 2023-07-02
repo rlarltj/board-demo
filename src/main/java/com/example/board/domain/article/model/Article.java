@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import com.example.board.domain.comment.Comment;
+import com.example.board.domain.comment.model.Comment;
 import com.example.board.domain.user.model.User;
 import com.example.board.global.domain.BaseEntity;
 
