@@ -19,6 +19,9 @@ public enum ErrorCode {
 	//article
 	ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "A001", "존재하지 않는 게시글입니다."),
 
+	//comment
+	COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "C001", "존재하지 않는 댓글입니다"),
+
 	//global
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "G001", "서버 에러입니다."),
 	INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "G002", "잘못된 입력 값입니다.");
