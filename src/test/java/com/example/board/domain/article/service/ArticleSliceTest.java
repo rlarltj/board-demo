@@ -98,4 +98,18 @@ public class ArticleSliceTest {
 		verify(articleRepository).findById(anyLong());
 		verify(articleRepository).delete(any());
 	}
+
+	@DisplayName("[성공] 게시글 단건조회에 성공한다.")
+	@Test
+	void 게시글_단건조회_성공() throws Exception {
+		//given
+		Article article = ArticleObjectProvider.createArticle();
+
+		//when
+		when(articleRepository.findById(anyLong())).thenReturn(Optional.of(article));
+
+		//then
+		assertDoesNotThrow(() -> articleService.findOne(1L));
+		verify(articleRepository).findById(anyLong());
+	}
 }
