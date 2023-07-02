@@ -1,13 +1,12 @@
 package com.example.board.domain.article.converter;
 
-import static org.mapstruct.ReportingPolicy.*;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import com.example.board.domain.article.dto.ArticleCreateRequest;
 import com.example.board.domain.article.model.Article;
 import com.example.board.domain.user.model.User;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import static org.mapstruct.ReportingPolicy.IGNORE;
 
 @Mapper(componentModel = "spring", unmappedSourcePolicy = IGNORE)
 public interface ArticleMapper {
