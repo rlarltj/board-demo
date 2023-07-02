@@ -1,5 +1,6 @@
 package com.example.board.domain.article.service;
 
+import com.example.board.domain.article.dto.ArticleResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,5 +64,12 @@ public class ArticleService {
 			.orElseThrow(() -> new ArticleNotFoundException(new Object[] {articleId}));
 
 		articleRepository.delete(article);
+	}
+
+	public ArticleResponse findOne(Long articleId) {
+		Article article = articleRepository.findById(articleId)
+				.orElseThrow(() -> new ArticleNotFoundException(new Object[] {articleId}));
+
+		return articleMapper.toArticleResponse(article);
 	}
 }

@@ -7,6 +7,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.example.board.domain.article.dto.ArticleResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,5 +113,29 @@ class ArticleControllerTest {
 		result.andExpect(status().isOk());
 
 		verify(articleService).delete(articleId);
+	}
+
+	@DisplayName("[성공] 게시글 단건 조회에 성공한다.")
+	@WithMockUser
+	@Test
+	void 게시글_단건조회_성공() throws Exception {
+		//given
+		Long articleId = 1L;
+		Long writerId = 1L;
+		ArticleResponse articleResponse = new ArticleResponse(articleId, "제목", "본문", writerId, "홍길동");
+
+		//when
+		when(articleService.findOne(articleId)).thenReturn(articleResponse);
+
+		ResultActions result = mockMvc.perform(get("/api/v1/articles/{id}", articleId)
+						.with(csrf())
+						.contentType(APPLICATION_JSON)
+				)
+				.andDo(print());
+
+		//then
+		result.andExpect(status().isOk());
+
+		verify(articleService).findOne(articleId);
 	}
 }

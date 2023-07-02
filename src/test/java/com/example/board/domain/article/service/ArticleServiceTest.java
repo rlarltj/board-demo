@@ -2,6 +2,7 @@ package com.example.board.domain.article.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.example.board.domain.article.dto.ArticleResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -79,4 +80,22 @@ class ArticleServiceTest {
 		assertEquals(content, result.getContent());
 	}
 
+	@DisplayName("[성공] 게시글 단건조회에 성공한다.")
+	@Test
+	void 게시글_단건조회_성공() {
+		//given
+		String title = "제목";
+		String content = "내용";
+		ArticleCreateRequest createRequest = new ArticleCreateRequest(title, content, user.getId());
+
+		//when
+		IdResponse result = articleService.register(createRequest);
+		ArticleResponse findOne = articleService.findOne(result.id());
+
+		//then
+		assertEquals(title, findOne.title());
+		assertEquals(content, findOne.content());
+		assertEquals(user.getId(), findOne.writerId());
+		assertEquals(user.getUsername(), findOne.writerName());
+	}
 }
